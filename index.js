@@ -4,6 +4,7 @@ const express = require("express");
 const { ActivityHandler, BotFrameworkAdapter } = require("botbuilder");
  
 const app = express();
+ 
 app.use(express.json());
  
 // Home page
@@ -11,7 +12,7 @@ app.get("/", (req, res) => {
     res.send("Echo Bot is running!");
 });
  
-// Bot Adapter
+// Adapter
 const adapter = new BotFrameworkAdapter({
     appId: process.env.MicrosoftAppId || "",
     appPassword: process.env.MicrosoftAppPassword || ""
@@ -45,6 +46,6 @@ app.post("/api/messages", async (req, res) => {
 const PORT = process.env.PORT || 3978;
  
 app.listen(PORT, () => {
-    console.log(`✅ Bot is running on port ${PORT}`);
+    console.log(`Bot is running on port ${PORT}`);
 });
  
