@@ -7,26 +7,25 @@ const app = express();
  
 app.use(express.json());
  
-// Home page
+// Test page
 app.get("/", (req, res) => {
     res.send("Echo Bot is running!");
 });
  
-// Adapter
+// For lab testing without authentication
 const adapter = new BotFrameworkAdapter({
-    appId: process.env.MicrosoftAppId || "",
-    appPassword: process.env.MicrosoftAppPassword || ""
+    appId: "",
+    appPassword: ""
 });
  
-// Echo Bot
 class EchoBot extends ActivityHandler {
     constructor() {
         super();
  
         this.onMessage(async (context, next) => {
-            const userMessage = context.activity.text;
+            const text = context.activity.text;
  
-            await context.sendActivity(`You said: ${userMessage}`);
+            await context.sendActivity(`You said: ${text}`);
  
             await next();
         });
@@ -42,7 +41,7 @@ app.post("/api/messages", async (req, res) => {
     });
 });
  
-// Azure App Service port
+// Start server
 const PORT = process.env.PORT || 3978;
  
 app.listen(PORT, () => {
